@@ -5,20 +5,18 @@ import LwwTwoPhaseSet from "./lib/lwwTwoPhaseSet.js";
 const tps1 = new LwwTwoPhaseSet();
 const tps2 = new LwwTwoPhaseSet();
 
-tps1.add("a", 1);
-tps1.add("b", 2);
-tps1.add("c", 3);
+tps1.add(`${["a", "b"]}`, 1);
+tps1.remove(`${["a", "c"]}`, 2);
+tps1.remove(`${["a", "b"]}`, 3);
 
-tps2.add("d", 1);
-tps2.add("e", 2);
+log(`${{ a: 1, b: "b" }}`);
+// tps2.add("d", 1);
+// tps2.add("e", 2);
 
-tps1.merge(tps2);
-tps2.merge(tps1);
+// tps1.merge(tps2);
+// tps2.merge(tps1);
 
-tps1.remove("d", 4);
-tps1.add("d", 4);
-
-tps2.merge(tps1);
+// tps1.remove("d", 4);
 
 log(tps1.list());
 log(tps2.list());
