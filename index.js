@@ -3,6 +3,19 @@ import Graph from './lib/graph.js';
 import LwwTwoPhaseSet from './lib/lwwTwoPhaseSet.js';
 import StateBasedLwwElementGraph from './lib/stateBasedLwwElementGraph.js';
 
+function runFindPath(graphs, from, to) {
+	graphs.forEach((graph, i) => {
+		log('Replica %s%s', i + 1, new Array(51).join('-'));
+
+		const paths = graph.findAllPaths(from, to);
+
+		log(`[INFO] ${from} to ${to}: ${paths.length} paths found`);
+		paths.forEach((path) => log(path.join(' -> ')));
+
+		log('%s', new Array(60).join('-'));
+	});
+}
+
 function testAirportGraph() {
 	// Data
 	const airports = 'PHX BKK OKC JFK LAX MEX EZE HEL LOS LAP LIM'.split(' ');
@@ -91,62 +104,168 @@ function testLww2PhaseSet() {
 function testCrdtGraph() {
 	const crdtGraph1 = new StateBasedLwwElementGraph();
 	const crdtGraph2 = new StateBasedLwwElementGraph();
+	const crdtGraph3 = new StateBasedLwwElementGraph();
 
- // Data
+	// Data
 	const vertices = 'Jason Faye Iris Tom Tony Anson Bella Kenneth Ken Ben Steven'.split(' ');
 	const routes = [
 		// ['Jason', 'Faye'],
-		['Jason', 'Tony'],
+		// ['Jason', 'Tony'],
 		// ['Jason', 'Iris'],
-		['Tony', 'Tom'],
+		// ['Tony', 'Tom'],
 		// ['Iris', 'Faye'],
 		// ['Iris', 'Anson'],
-		['Anson', 'Kenneth'],
+		// ['Anson', 'Kenneth'],
 		// ['Tom', 'Ken'],
-		['Bella', 'Ben'],
+		// ['Bella', 'Ben'],
 		// ['Tom', 'Steven'],
 		// ['Ken', 'Steven'],
 	];
 
- crdtGraph1.addVertex("Jason");
- crdtGraph1.addVertex("Faye");
- crdtGraph1.addVertex("Iris");
- crdtGraph1.addVertex("Anson");
- crdtGraph1.addVertex("Tony");
+	crdtGraph1.addVertex('Jason');
+	crdtGraph1.addVertex('Faye');
+	crdtGraph1.addVertex('Iris');
+	crdtGraph1.addVertex('Anson');
+	crdtGraph1.addVertex('Tony');
 
- crdtGraph1.addEdge("Jason", "Faye");
- crdtGraph1.addEdge("Jason", "Tony");
- crdtGraph1.addEdge("Jason", "Iris");
- crdtGraph1.addEdge("Faye", "Iris");
- crdtGraph1.addEdge("Iris", "Anson");
+	crdtGraph1.addEdge('Jason', 'Faye');
+	crdtGraph1.addEdge('Jason', 'Tony');
+	crdtGraph1.addEdge('Jason', 'Iris');
+	crdtGraph1.addEdge('Faye', 'Iris');
+	crdtGraph1.addEdge('Iris', 'Anson');
 
+	crdtGraph2.addVertex('Tom');
+	crdtGraph2.addVertex('Ken');
+	crdtGraph2.addVertex('Steven');
 
- crdtGraph2.addVertex("Tom");
- crdtGraph2.addVertex("Ken");
- crdtGraph2.addVertex("Bella");
- crdtGraph2.addVertex("Steven");
+	crdtGraph2.addEdge('Ken', 'Tom');
+	crdtGraph2.addEdge('Steven', 'Tom');
+	crdtGraph2.addEdge('Steven', 'Ken');
 
- crdtGraph2.addEdge("Tony", "Tom");
- crdtGraph2.addEdge("Ken", "Tom");
- crdtGraph2.addEdge("Steven", "Tom");
- crdtGraph2.addEdge("Steven", "Ken");
+	crdtGraph3.addVertex('Bella');
+	crdtGraph3.addVertex('Ben');
+	crdtGraph3.addVertex('Kenneth');
 
+	crdtGraph3.addEdge('Bella', 'Ben');
 
- crdtGraph1.merge(crdtGraph2);
- crdtGraph2.merge(crdtGraph1);
+	crdtGraph3.merge(crdtGraph1);
+	crdtGraph1.merge(crdtGraph2);
+	// crdtGraph2.merge(crdtGraph1);
 
- crdtGraph2.addEdge("Tony", "Tom");
- 
- log(crdtGraph1.graph);
- log(crdtGraph2.graph);
+	crdtGraph1.addEdge('Tony', 'Tom');
+	crdtGraph3.addEdge('Anson', 'Kenneth');
 
- // The paths between two vertex
-	// const from = 'Faye';
-	// const to = 'Tony';
-	// const paths = crdtGraph1.graph.findAllPaths(from, to);
+	// log('Replica 1%s', new Array(50).join('-'));
+	// log(crdtGraph1.graph);
 
-	// log(`${from} to ${to}: ${paths.length} paths found`);
-	// paths.forEach((path) => log(path.join(' -> ')));
+	// log('Replica 2%s', new Array(50).join('-'));
+	// log(crdtGraph2.graph);
+
+	// log('Replica 3%s', new Array(50).join('-'));
+	// log(crdtGraph3.graph);
+
+	// The paths between two vertex
+	const from = 'Iris';
+	const to = 'Jason';
+
+	runFindPath(
+		[crdtGraph1, crdtGraph2, crdtGraph3].map((value) => value.graph),
+		from,
+		to
+	);
+
+	log('[INFO] Merge replica 3 into replica 1');
+	crdtGraph1.merge(crdtGraph3);
+
+	runFindPath(
+		[crdtGraph1, crdtGraph2, crdtGraph3].map((value) => value.graph),
+		from,
+		to
+	);
+
+	crdtGraph3.removeEdge('Anson', 'Kenneth');
+
+	log('[INFO] Merge replica 3 into replica 1');
+	crdtGraph2.merge(crdtGraph3);
+
+	runFindPath(
+		[crdtGraph1, crdtGraph2, crdtGraph3].map((value) => value.graph),
+		from,
+		to
+	);
 }
 
-testCrdtGraph();
+function testCrdtGraph2() {
+	const crdtGraph1 = new StateBasedLwwElementGraph();
+	const crdtGraph2 = new StateBasedLwwElementGraph();
+	const crdtGraph3 = new StateBasedLwwElementGraph();
+
+	crdtGraph1.addVertex('a', 1);
+	crdtGraph1.addVertex('b', 1);
+	crdtGraph1.addVertex('c', 1);
+
+	crdtGraph1.addEdge('a', 'b', 1);
+	crdtGraph1.addEdge('a', 'c', 1);
+
+	crdtGraph2.addVertex('a', 1);
+	crdtGraph2.addVertex('b', 1);
+	crdtGraph2.addVertex('d', 1);
+
+	crdtGraph2.addEdge('a', 'd', 1);
+	crdtGraph2.addEdge('b', 'd', 1);
+
+	// log('Replica 1%s', new Array(50).join('-'));
+	// log(crdtGraph1.graph);
+
+	// log('Replica 2%s', new Array(50).join('-'));
+	// log(crdtGraph2.graph);
+
+	// log('Replica 3%s', new Array(50).join('-'));
+	// log(crdtGraph3.graph);
+
+	// The paths between two vertex
+	const from = 'b';
+	const to = 'c';
+
+	runFindPath(
+		[crdtGraph1, crdtGraph2, crdtGraph3].map((value) => value.graph),
+		from,
+		to
+	);
+
+ log();
+	log('[INFO] Merge replica 1 into replica 2');
+	crdtGraph2.merge(crdtGraph1);
+
+	runFindPath(
+		[crdtGraph1, crdtGraph2, crdtGraph3].map((value) => value.graph),
+		from,
+		to
+	);
+
+	crdtGraph2.removeEdge('c', 'a', 2);
+
+ log();
+	log('[INFO] Merge replica 2 into replica 3');
+	crdtGraph3.merge(crdtGraph2);
+
+	crdtGraph3.addEdge('c', 'a', 3);
+
+	runFindPath(
+		[crdtGraph1, crdtGraph2, crdtGraph3].map((value) => value.graph),
+		from,
+		to
+	);
+
+ log();
+	log('[INFO] Merge replica 3 into replica 1 & 2');
+ crdtGraph1.merge(crdtGraph3);
+ crdtGraph2.merge(crdtGraph3);
+ runFindPath(
+		[crdtGraph1, crdtGraph2, crdtGraph3].map((value) => value.graph),
+		from,
+		to
+	);
+}
+
+testCrdtGraph2();
