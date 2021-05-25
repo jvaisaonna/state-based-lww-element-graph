@@ -35,13 +35,13 @@ new Graph();
 
 #### Method: `searchVertex(vertex)`: Array
 
-| Parameter | Type                    | Required | default |
+| Parameter | Type                    | Required | Default |
 | --------- | ----------------------- | -------- | ------- |
 | vertex    | String, Number, Boolean | `true`   |         |
 
 #### Method: `findAllReachableVertices(vertex)`: Array
 
-| Parameter | Type                    | Required | default |
+| Parameter | Type                    | Required | Default |
 | --------- | ----------------------- | -------- | ------- |
 | vertex    | String, Number, Boolean | `true`   |         |
 
@@ -49,7 +49,7 @@ Throw an error when `vertex` are not exist in the graph
 
 #### Method: `findAllPaths(from, to, visited = [], allPaths = [])`: Array
 
-| Parameter | Type                    | Required | default |
+| Parameter | Type                    | Required | Default |
 | --------- | ----------------------- | -------- | ------- |
 | from      | String, Number, Boolean | `true`   |         |
 | to        | String, Number, Boolean | `true`   |         |
@@ -74,7 +74,7 @@ new StateBasedLwwElementGraph();
 
 Add a `SetElement` into `verticesSet` with provided vertex
 
-| Parameter | Type                    | Required | default      |
+| Parameter | Type                    | Required | Default      |
 | --------- | ----------------------- | -------- | ------------ |
 | vertex    | String, Number, Boolean | `true`   |              |
 | timestamp | Number                  | `false`  | `Date.now()` |
@@ -83,7 +83,7 @@ Add a `SetElement` into `verticesSet` with provided vertex
 
 Remove a `SetElement` of provided vertex from `verticesSet`
 
-| Parameter | Type                    | Required | default      |
+| Parameter | Type                    | Required | Default      |
 | --------- | ----------------------- | -------- | ------------ |
 | vertex    | String, Number, Boolean | `true`   |              |
 | timestamp | Number                  | `false`  | `Date.now()` |
@@ -94,7 +94,7 @@ Throw an error when `vertex` is not exist in the `verticesSet`
 
 Add an edge into `edgesSet` with provided vertices
 
-| Parameter | Type                    | Required | default      |
+| Parameter | Type                    | Required | Default      |
 | --------- | ----------------------- | -------- | ------------ |
 | from      | String, Number, Boolean | `true`   |              |
 | to        | String, Number, Boolean | `true`   |              |
@@ -106,7 +106,7 @@ Throw an error when `from` or `to` vertex is not exist in the `verticesSet`
 
 Remove an edge of provided vertices from `edgesSet`
 
-| Parameter | Type                    | Required | default      |
+| Parameter | Type                    | Required | Default      |
 | --------- | ----------------------- | -------- | ------------ |
 | from      | String, Number, Boolean | `true`   |              |
 | to        | String, Number, Boolean | `true`   |              |
@@ -118,13 +118,15 @@ Throw an error when `from` to `to` edge is not exist in the `edgesSet`
 
 Merge the `verticesSet` and `edgesSet` of `incomingStateBasedLwwElementGraph` into self `verticesSet` and `edgesSet`
 
-| Parameter                         | Type                      | Required | default |
+| Parameter                         | Type                      | Required | Default |
 | --------------------------------- | ------------------------- | -------- | ------- |
 | incomingStateBasedLwwElementGraph | StateBasedLwwElementGraph | `true`   |         |
 
 Throw an error when the type of `incomingStateBasedLwwElementGraph` is not `StateBasedLwwElementGraph`
 
 ## Example
+
+### Add vertex
 
 ## Test
 
