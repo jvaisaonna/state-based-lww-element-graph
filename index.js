@@ -67,7 +67,7 @@ replica3.merge(replica1);
 const vertex = 'Jason';
 let result;
 
-// Run graph searchVertex for each replicas
+// Run graph.searchVertex for each replicas
 result = replica1.graph.searchVertex(vertex); // Tim,Steven,Leo
 console.log(`Replica1 - searchVertex(${vertex}): ${result.length} vertices found\n${result}\n`);
 
@@ -77,7 +77,7 @@ console.log(`Replica2 - searchVertex(${vertex}): ${result.length} vertices found
 result = replica3.graph.searchVertex(vertex); // Tim,Steven,Leo
 console.log(`Replica3 - searchVertex(${vertex}): ${result.length} vertices found\n${result}\n`);
 
-// Run graph findAllReachableVertices for each replicas
+// Run graph.findAllReachableVertices for each replicas
 result = replica1.graph.findAllReachableVertices(vertex); // Tim,Steven,Leo,Peter
 console.log(
   `Replica1 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`
@@ -93,7 +93,7 @@ console.log(
   `Replica3 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`
 );
 
-// Run graph findAllPaths for each replicas
+// Run graph.findAllPaths for each replicas
 const from = 'Peter';
 const to = 'Leo';
 
