@@ -1,30 +1,45 @@
-import log from 'fancy-log';
 import Graph from './lib/graph.js';
 import LwwTwoPhaseSet from './lib/lwwTwoPhaseSet.js';
 import StateBasedLwwElementGraph from './lib/stateBasedLwwElementGraph.js';
 
-function runFindPath(graphs, from, to) {
+function runFindAllPaths(graphs, from, to) {
   graphs.forEach((graph, i) => {
-    log('Replica %s%s', i + 1, new Array(51).join('-'));
+    console.log('Replica %s%s', i + 1, new Array(51).join('-'));
 
     const paths = graph.findAllPaths(from, to);
 
-    log(`[INFO] ${from} to ${to}: ${paths.length} paths found`);
-    paths.forEach((path) => log(path.join(' -> ')));
+    console.log(`findAllPaths(${from}, ${to}): ${paths.length} paths found\n`);
 
-    log('%s', new Array(60).join('-'));
+    paths.forEach((path) => console.log(path.join(' -> ')));
+
+    console.log('%s', new Array(60).join('-'));
+    console.log();
   });
 }
 
 function runSearchVertex(graphs, vertex) {
   graphs.forEach((graph, i) => {
-    log('Replica %s%s', i + 1, new Array(51).join('-'));
+    console.log('Replica %s%s', i + 1, new Array(51).join('-'));
 
     const results = graph.searchVertex(vertex);
 
-    log(`[INFO] Search vertex: ${vertex} ${results.length} vertices found`);
-    log(results);
-    log('%s', new Array(60).join('-'));
+    console.log(`searchVertex(${vertex}): ${results.length} vertices found\n`);
+    console.log(results);
+    console.log('%s', new Array(60).join('-'));
+    console.log();
+  });
+}
+
+function runFindAllReachableVertices(graphs, vertex) {
+  graphs.forEach((graph, i) => {
+    console.log('Replica %s%s', i + 1, new Array(51).join('-'));
+
+    const results = graph.findAllReachableVertices(vertex);
+
+    console.log(`findAllReachableVertices(${vertex}): ${results.length} vertices found\n`);
+    console.log(results);
+    console.log('%s', new Array(60).join('-'));
+    console.log();
   });
 }
 
@@ -51,9 +66,9 @@ function testAirportGraph() {
   // Data input
   airports.forEach((v) => airportGraph.addVertex(v));
   routes.forEach((v) => airportGraph.addEdge(...v));
-  log(airportGraph.adjacencyList);
+  console.log(airportGraph.adjacencyList);
 
-  console.log(airportGraph.findAllPaths('PHX', 'OKC'));
+  console.console.log(airportGraph.findAllPaths('PHX', 'OKC'));
 }
 
 function testPeopleNetworkGraph() {
@@ -78,15 +93,15 @@ function testPeopleNetworkGraph() {
   // Data input
   vertices.forEach((v) => myGraph.addVertex(v));
   routes.forEach((v) => myGraph.addEdge(...v));
-  log(myGraph.adjacencyList);
+  console.log(myGraph.adjacencyList);
 
   // The paths between two vertex
   const from = 'Kenneth';
   const to = 'Jason';
   const paths = myGraph.findAllPaths(from, to);
 
-  log(`${from} to ${to}: ${paths.length} paths found`);
-  paths.forEach((path) => log(path.join(' -> ')));
+  console.log(`${from} to ${to}: ${paths.length} paths found`);
+  paths.forEach((path) => console.log(path.join(' -> ')));
 }
 
 function testLww2PhaseSet() {
@@ -109,8 +124,8 @@ function testLww2PhaseSet() {
 
   tps1.remove('d', 4);
 
-  log(tps1.list());
-  log(tps2.list());
+  console.log(tps1.list());
+  console.log(tps2.list());
 }
 
 function testCrdtGraph() {
@@ -178,35 +193,50 @@ function testCrdtGraph() {
   replica2.merge(replica1);
   replica3.merge(replica1);
 
-  // At timestamp: 5
-  t = 5;
+  const vertex = 'Jason';
+  let result;
 
-  // At timestamp: 6
-  t = 6;
+  // Run graph searchVertex for each replicas
+  result = replica1.graph.searchVertex(vertex); // Tim,Steven,Leo
+  console.log(`Replica1 - searchVertex(${vertex}): ${result.length} vertices found\n${result}\n`);
 
-  // log('Replica 1%s', new Array(50).join('-'));
-  // log(replica1.graph);
+  result = replica2.graph.searchVertex(vertex); // Tim,Steven,Leo
+  console.log(`Replica2 - searchVertex(${vertex}): ${result.length} vertices found\n${result}\n`);
 
-  // log('Replica 2%s', new Array(50).join('-'));
-  // log(replica2.graph);
+  result = replica3.graph.searchVertex(vertex); // Tim,Steven,Leo
+  console.log(`Replica3 - searchVertex(${vertex}): ${result.length} vertices found\n${result}\n`);
 
-  // log('Replica 3%s', new Array(50).join('-'));
-  // log(replica3.graph);
+  // Run graph findAllReachableVertices for each replicas
+  result = replica1.graph.findAllReachableVertices(vertex); // Tim,Steven,Leo,Peter
+  console.log(
+    `Replica1 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`
+  );
 
-  // The paths between two vertex
+  result = replica2.graph.findAllReachableVertices(vertex); // Tim,Steven,Leo,Peter
+  console.log(
+    `Replica2 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`
+  );
+
+  result = replica3.graph.findAllReachableVertices(vertex); // Tim,Steven,Leo,Peter
+  console.log(
+    `Replica3 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`
+  );
+
+  // Run graph findAllPaths for each replicas
   const from = 'Peter';
   const to = 'Leo';
 
-  runFindPath(
-    [replica1, replica2, replica3].map((value) => value.graph),
-    from,
-    to
-  );
+  result = replica1.graph.findAllPaths(from, to); // [[Peter,Tim,Jason,Leo], [Peter,Tim,Jason,Steven,Leo]]
+  console.log(`Replica1 - findAllPaths(${from}, ${to}): ${result.length} paths found`);
+  result.forEach((path) => console.log(path.join(' -> ')));
 
-  runSearchVertex(
-    [replica1, replica2, replica3].map((value) => value.graph),
-    'Jason'
-  );
+  result = replica2.graph.findAllPaths(from, to); // [[Peter,Tim,Jason,Leo], [Peter,Tim,Jason,Steven,Leo]]
+  console.log(`Replica2 - findAllPaths(${from}, ${to}): ${result.length} paths found`);
+  result.forEach((path) => console.log(path.join(' -> ')));
+
+  result = replica3.graph.findAllPaths(from, to); // [[Peter,Tim,Jason,Leo], [Peter,Tim,Jason,Steven,Leo]]
+  console.log(`Replica3 - findAllPaths(${from}, ${to}): ${result.length} paths found`);
+  result.forEach((path) => console.log(path.join(' -> ')));
 }
 
 testCrdtGraph();
