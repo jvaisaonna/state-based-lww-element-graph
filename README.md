@@ -174,12 +174,14 @@ In this example, it will shows the usage of the APIs above. Also, it demonstrate
 
 - Add and remove vertex on the same replica
 - Add vertex on a replica and remove that vertex on another replica
+- Add the same vertex back after some replica deleted
 - Add and remove edge on the same replica
 - Add edge on a replica and remove that vertex on another replica
+- Add the same edge back after some replica deleted
 - Merge other replicas to self-replica
-- The result of `searchVertex`, `findAllReachableVertices` and `findAllPaths` should be the same on all replicas
+- The results of `searchVertex`, `findAllReachableVertices` and `findAllPaths` should be the same on all replicas
 
-The following image to show the relation of each vertices.
+The following image to show the relation of each vertices in this example.
 
 ![People Network Graph](./assets/people-network.png)
 
