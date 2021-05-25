@@ -312,12 +312,12 @@ $ npm run test:coverage
 > state-based-lww-element-graph@1.0.0 test:coverage
 > node --experimental-vm-modules node_modules/.bin/jest --coverage
 
-(node:84817) ExperimentalWarning: VM Modules is an experimental feature. This feature could change at any time
+(node:86279) ExperimentalWarning: VM Modules is an experimental feature. This feature could change at any time
 (Use `node --trace-warnings ...` to show where the warning was created)
  PASS  __tests__/lib/stateBasedLwwElementGraph.test.js
  PASS  __tests__/lib/graph.test.js
  PASS  __tests__/lib/lwwTwoPhaseSet.test.js
- PASS  __tests__/useCase.test.js
+ PASS  __tests__/crdtGraphUseCase.test.js
 ------------------------------|---------|----------|---------|---------|-------------------
 File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 ------------------------------|---------|----------|---------|---------|-------------------
@@ -330,7 +330,7 @@ All files                     |     100 |      100 |     100 |     100 |
 Test Suites: 4 passed, 4 total
 Tests:       49 passed, 49 total
 Snapshots:   0 total
-Time:        0.539 s, estimated 1 s
+Time:        0.523 s, estimated 1 s
 Ran all test suites.
 ```
 
