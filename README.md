@@ -62,7 +62,7 @@ Throw an error when `from` or `to` vertex is not exist in the graph
 
 #### Property: `graph`: Graph
 
-`graph` will return a `Graph` object with the existing vertices and edges
+The `graph` will return a `Graph` object with the existing vertices and edges
 
 #### Constructor
 
