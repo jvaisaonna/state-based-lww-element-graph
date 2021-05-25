@@ -35,11 +35,15 @@ new Graph();
 
 #### Method: `searchVertex(vertex)`: Array
 
+Return an array which contains all direct connected vertices
+
 | Parameter | Type                    | Required | Default |
 | --------- | ----------------------- | -------- | ------- |
 | vertex    | String, Number, Boolean | `true`   |         |
 
 #### Method: `findAllReachableVertices(vertex)`: Array
+
+Return an array which contains all reachable vertices
 
 | Parameter | Type                    | Required | Default |
 | --------- | ----------------------- | -------- | ------- |
@@ -48,6 +52,8 @@ new Graph();
 Throw an error when `vertex` are not exist in the graph
 
 #### Method: `findAllPaths(from, to, visited = [], allPaths = [])`: Array
+
+Return an array which contains all possible paths
 
 | Parameter | Type                    | Required | Default |
 | --------- | ----------------------- | -------- | ------- |
