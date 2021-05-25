@@ -1,4 +1,3 @@
-import { jest } from '@jest/globals';
 import StateBasedLwwElementGraph from '../lib/stateBasedLwwElementGraph.js';
 
 describe('Actual use cases', () => {
