@@ -17,7 +17,7 @@ In this project, it implemented the data structure of Last-Write-Wins-Element Gr
 
 This project is created with **Node.js version: 12.22.1**
 
-### Install node modules
+### Install node modules for testing
 
 ```bash
 $ npm install
