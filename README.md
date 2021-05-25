@@ -45,7 +45,7 @@ new Graph();
 | --------- | ----------------------- | -------- | ------- |
 | vertex    | String, Number, Boolean | `true`   |         |
 
-Error will be threw if `vertex` are not exist in the graph
+Throw an error when `vertex` are not exist in the graph
 
 #### Method: `findAllPaths(from, to, visited = [], allPaths = [])`: Array
 
@@ -56,7 +56,7 @@ Error will be threw if `vertex` are not exist in the graph
 | visited   | Array                   | `false`  | `[]`    |
 | allPaths  | Array                   | `false`  | `[]`    |
 
-Error will be threw if `from` or `to` vertex is not exist in the graph
+Throw an error when `from` or `to` vertex is not exist in the graph
 
 ### Class: StateBasedLwwElementGraph
 
@@ -88,7 +88,7 @@ Remove a `SetElement` of provided vertex from `verticesSet`
 | vertex    | String, Number, Boolean | `true`   |              |
 | timestamp | Number                  | `false`  | `Date.now()` |
 
-Error will be threw if `vertex` is not exist in the `verticesSet`
+Throw an error when `vertex` is not exist in the `verticesSet`
 
 #### Method: `addEdge(from, to, timestamp = Date.now())`: void
 
@@ -100,7 +100,7 @@ Add an edge into `edgesSet` with provided vertices
 | to        | String, Number, Boolean | `true`   |              |
 | timestamp | Number                  | `false`  | `Date.now()` |
 
-Error will be threw if `from` or `to` vertex is not exist in the `verticesSet`
+Throw an error when `from` or `to` vertex is not exist in the `verticesSet`
 
 #### Method: `removeEdge(from, to, timestamp = Date.now())`: void
 
@@ -112,7 +112,7 @@ Remove an edge of provided vertices from `edgesSet`
 | to        | String, Number, Boolean | `true`   |              |
 | timestamp | Number                  | `false`  | `Date.now()` |
 
-Error will be threw if `from` to `to` edge is not exist in the `edgesSet`
+Throw an error when `from` to `to` edge is not exist in the `edgesSet`
 
 #### Method: `merge(incomingStateBasedLwwElementGraph)`: void
 
@@ -122,7 +122,7 @@ Merge the `verticesSet` and `edgesSet` of `incomingStateBasedLwwElementGraph` in
 | --------------------------------- | ------------------------- | -------- | ------- |
 | incomingStateBasedLwwElementGraph | StateBasedLwwElementGraph | `true`   |         |
 
-Error will be threw if the type of `incomingStateBasedLwwElementGraph` is not `StateBasedLwwElementGraph`
+Throw an error when the type of `incomingStateBasedLwwElementGraph` is not `StateBasedLwwElementGraph`
 
 ## Example
 
