@@ -126,7 +126,21 @@ Throw an error when the type of `incomingStateBasedLwwElementGraph` is not `Stat
 
 ## Example
 
-### Add vertex
+In this example, it will shows the usage of the APIs above. Also, it demonstrates the features of the lww-graph with 3 different replicas. You will see:
+
+- Add and remove vertex on the same replica
+- Add vertex on a replica and remove that vertex on another replica
+- Add and remove edge on the same replica
+- Add edge on a replica and remove that vertex on another replica
+- The result of `searchVertex`, `findAllReachableVertices` and `findAllPaths` should be the same on all replicas
+
+```javascript
+import StateBasedLwwElementGraph from './lib/stateBasedLwwElementGraph.js';
+
+const replica1 = new StateBasedLwwElementGraph();
+const replica2 = new StateBasedLwwElementGraph();
+const replica3 = new StateBasedLwwElementGraph();
+```
 
 ## Test
 
