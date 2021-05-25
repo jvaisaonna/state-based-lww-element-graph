@@ -15,12 +15,50 @@ In this project, it implemented the data structure of Last-Write-Wins-Element Gr
 
 ## Setup
 
-Project is created with **Node.js version: v12.22.1**
+This project is created with **Node.js version: 12.22.1**
 
 ### Install node modules
 
 ```bash
 $ npm install
+```
+
+### Run `index.js`
+
+```bash
+$ node index.js
+```
+
+After run the `index.js`, you should see the result below.
+
+```bash
+Replica1 - searchVertex(Jason): 3 vertices found
+Tim,Steven,Leo
+
+Replica2 - searchVertex(Jason): 3 vertices found
+Tim,Steven,Leo
+
+Replica3 - searchVertex(Jason): 3 vertices found
+Tim,Steven,Leo
+
+Replica1 - findAllReachableVertices(Jason): 4 vertices found
+Tim,Steven,Leo,Peter
+
+Replica2 - findAllReachableVertices(Jason): 4 vertices found
+Tim,Steven,Leo,Peter
+
+Replica3 - findAllReachableVertices(Jason): 4 vertices found
+Tim,Steven,Leo,Peter
+
+Replica1 - findAllPaths(Peter, Leo): 2 paths found
+Peter -> Tim -> Jason -> Leo
+Peter -> Tim -> Jason -> Steven -> Leo
+Replica2 - findAllPaths(Peter, Leo): 2 paths found
+Peter -> Tim -> Jason -> Leo
+Peter -> Tim -> Jason -> Steven -> Leo
+Replica3 - findAllPaths(Peter, Leo): 2 paths found
+Peter -> Tim -> Jason -> Leo
+Peter -> Tim -> Jason -> Steven -> Leo
 ```
 
 ## Usage
@@ -258,7 +296,41 @@ console.log(`Replica3 - findAllPaths(${from}, ${to}): ${result.length} paths fou
 result.forEach((path) => console.log(path.join(' -> ')));
 ```
 
-## Test
+## Testing
+
+All the data structure files has been completely tested and fully covered.
+
+### Run test
+
+Type `npm run test:coverage` in CLI to run the Jest test and see the coverage report.
+
+```bash
+$ npm run test:coverage
+
+> state-based-lww-element-graph@1.0.0 test:coverage
+> node --experimental-vm-modules node_modules/.bin/jest --coverage
+
+(node:84817) ExperimentalWarning: VM Modules is an experimental feature. This feature could change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ PASS  __tests__/lib/stateBasedLwwElementGraph.test.js
+ PASS  __tests__/lib/graph.test.js
+ PASS  __tests__/lib/lwwTwoPhaseSet.test.js
+ PASS  __tests__/actualUseCase.test.js
+------------------------------|---------|----------|---------|---------|-------------------
+File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------------------------|---------|----------|---------|---------|-------------------
+All files                     |     100 |      100 |     100 |     100 |
+ graph.js                     |     100 |      100 |     100 |     100 |
+ lwwTwoPhaseSet.js            |     100 |      100 |     100 |     100 |
+ stateBasedLwwElementGraph.js |     100 |      100 |     100 |     100 |
+------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 4 passed, 4 total
+Tests:       49 passed, 49 total
+Snapshots:   0 total
+Time:        0.539 s, estimated 1 s
+Ran all test suites.
+```
 
 ## References
 
