@@ -12,6 +12,7 @@ In this project, it implemented the data structure of Last-Write-Wins-Element Gr
 - Query for all vertices connected to a vertex
 - Find all possible paths between two vertices
 - Merge with concurrent changes from other graph or replica
+  - The merge function are commutative, associative and idempotent
 
 ## Setup
 
