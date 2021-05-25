@@ -138,7 +138,12 @@ In this example, it will shows the usage of the APIs above. Also, it demonstrate
 - Add vertex on a replica and remove that vertex on another replica
 - Add and remove edge on the same replica
 - Add edge on a replica and remove that vertex on another replica
+- Merge other replicas to self-replica
 - The result of `searchVertex`, `findAllReachableVertices` and `findAllPaths` should be the same on all replicas
+
+The following image to show the relation of each vertices.
+
+![People Network Graph](./assets/people-network.png)
 
 ```javascript
 import StateBasedLwwElementGraph from './lib/stateBasedLwwElementGraph.js';
