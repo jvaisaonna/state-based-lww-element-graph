@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
-import Graph from '../graph.js';
-import LwwTwoPhaseSet from '../lwwTwoPhaseSet.js';
-import StateBasedLwwElementGraph from '../stateBasedLwwElementGraph.js';
+import Graph from '../../lib/graph.js';
+import LwwTwoPhaseSet from '../../lib/lwwTwoPhaseSet.js';
+import StateBasedLwwElementGraph from '../../lib/stateBasedLwwElementGraph.js';
 
 describe('StateBasedLwwElementGraph', () => {
 	let crdtGraph;
@@ -159,6 +159,15 @@ describe('StateBasedLwwElementGraph', () => {
 			expect(crdtGraph.isLatestGraph).toBe(false);
 			expect(verticesMergeSpy).toHaveBeenCalledWith(new StateBasedLwwElementGraph().verticesSet);
 			expect(edgesMergeSpy).toHaveBeenCalledWith(new StateBasedLwwElementGraph().verticesSet);
+		});
+
+		test('should throw an error when no corresponding object', () => {
+			const verticesMergeSpy = jest.spyOn(crdtGraph.verticesSet, 'merge');
+			const edgesMergeSpy = jest.spyOn(crdtGraph.edgesSet, 'merge');
+
+			expect(() => crdtGraph.merge({})).toThrow('Only accept StateBasedLwwElementGraph object');
+			expect(verticesMergeSpy).not.toHaveBeenCalled();
+			expect(edgesMergeSpy).not.toHaveBeenCalled();
 		});
 	});
 
