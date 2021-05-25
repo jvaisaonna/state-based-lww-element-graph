@@ -300,7 +300,7 @@ result.forEach((path) => console.log(path.join(' -> ')));
 
 ## Testing
 
-All the data structure files has been completely tested and fully covered.
+All the data structure files has been completely tested and fully covered(100% coverage).
 
 ### Run test
 
