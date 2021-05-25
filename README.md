@@ -315,7 +315,7 @@ $ npm run test:coverage
  PASS  __tests__/lib/stateBasedLwwElementGraph.test.js
  PASS  __tests__/lib/graph.test.js
  PASS  __tests__/lib/lwwTwoPhaseSet.test.js
- PASS  __tests__/actualUseCase.test.js
+ PASS  __tests__/useCase.test.js
 ------------------------------|---------|----------|---------|---------|-------------------
 File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 ------------------------------|---------|----------|---------|---------|-------------------
