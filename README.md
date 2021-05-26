@@ -1,6 +1,6 @@
 # State-based Last-Write-Win-Element Graph
 
-## Table of Content
+## Table of contents
 
 - [About](#about)
 - [Features](#features)
