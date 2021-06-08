@@ -1,5 +1,31 @@
 # State-based Last-Write-Win-Element Graph
 
+## Table of contents
+
+- [About](#about)
+- [Features](#features)
+- [Setup](#setup)
+  - [Install node modules for testing](#install-node-modules-for-testing)
+  - [Run `index.js`](#run-indexjs)
+- [Usage](#usage)
+  - [Class: Graph](#class-graph)
+    - [Constructor](#constructor)
+    - [Method: `searchVertex(vertex)`: Array](#method-searchvertexvertex-array)
+    - [Method: `findAllReachableVertices(vertex)`: Array](#method-findallreachableverticesvertex-array)
+    - [Method: `findAllPaths(from, to, visited = [], allPaths = [])`: Array](#method-findallpathsfrom-to-visited---allpaths---array)
+  - [Class: StateBasedLwwElementGraph](#class-statebasedlwwelementgraph)
+    - [Property: `graph`: Graph](#property-graph-graph)
+    - [Constructor](#constructor-1)
+    - [Method: `addVertex(vertex, timestamp = Date.now())`: void](#method-addvertexvertex-timestamp--datenow-void)
+    - [Method: `removeVertex(vertex, timestamp = Date.now())`: void](#method-removevertexvertex-timestamp--datenow-void)
+    - [Method: `addEdge(from, to, timestamp = Date.now())`: void](#method-addedgefrom-to-timestamp--datenow-void)
+    - [Method: `removeEdge(from, to, timestamp = Date.now())`: void](#method-removeedgefrom-to-timestamp--datenow-void)
+    - [Method: `merge(incomingStateBasedLwwElementGraph)`: void](#method-mergeincomingstatebasedlwwelementgraph-void)
+- [Example](#example)
+- [Testing](#testing)
+  - [Run test](#run-test)
+- [References](#references)
+
 ## About
 
 In this project, it implemented the data structure of Last-Write-Wins-Element Graph(lww-graph) in JavaScript. In terms of lww-graph, it is the State-based [Conflict-Free Replicated Date Type](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type)(CRDT) to provide an eventual consistency data to each replicas.
@@ -268,19 +294,13 @@ console.log(`Replica3 - searchVertex(${vertex}): ${result.length} vertices found
 
 // Run graph.findAllReachableVertices for each replicas
 result = replica1.graph.findAllReachableVertices(vertex); // Tim,Steven,Leo,Peter
-console.log(
-  `Replica1 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`
-);
+console.log(`Replica1 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`);
 
 result = replica2.graph.findAllReachableVertices(vertex); // Tim,Steven,Leo,Peter
-console.log(
-  `Replica2 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`
-);
+console.log(`Replica2 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`);
 
 result = replica3.graph.findAllReachableVertices(vertex); // Tim,Steven,Leo,Peter
-console.log(
-  `Replica3 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`
-);
+console.log(`Replica3 - findAllReachableVertices(${vertex}): ${result.length} vertices found\n${result}\n`);
 
 // Run graph.findAllPaths for each replicas
 const from = 'Peter';
