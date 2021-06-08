@@ -1,6 +1,6 @@
 import StateBasedLwwElementGraph from '../lib/stateBasedLwwElementGraph.js';
 
-describe('Actual use cases', () => {
+describe('The use case of CRDT Graph test', () => {
   describe('People network', () => {
     let replica1;
     let replica2;
